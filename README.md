@@ -1,3 +1,4 @@
+# CropLynk
 CropLynk is a farmer-centric digital platform designed to empower small and medium-scale farmers through technology. The application provides real-time weather updates, AI-driven crop advisory, and direct market access, enabling farmers to make informed decisions and connect with buyers without middlemen.
 
 Built with a focus on simplicity and accessibility, CropLynk supports multiple regional languages and offers a user-friendly interface suitable for rural users. The platform aims to increase productivity, reduce post-harvest losses, and improve farmers’ income by integrating smart agriculture solutions into a single, easy-to-use system.
