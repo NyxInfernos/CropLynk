@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "croplynk",
+    "croplynk": "croplynk"
+  },
+  "targets": {},
+  "etags": {}
+}
