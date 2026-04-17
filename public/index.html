@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="KisanSetu – Smart farming platform for real-time weather, AI crop guidance, and direct market access." />
+  <title>KisanSetu – The Farmer's Digital Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-leaf">🌿</div>
+      <div class="loader-bar">
+        <div class="loader-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header id="navbar" role="banner">
+    <nav class="nav-container" aria-label="Main navigation">
+      <a href="#hero" class="nav-logo" aria-label="KisanSetu Home">
+        <span class="logo-icon">🌾</span>
+        <span class="logo-text">KisanSetu</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#weather" data-i18n="nav_weather">Weather</a></li>
+        <li><a href="#ai-guidance" data-i18n="nav_ai">AI Guidance</a></li>
+        <li><a href="#market" data-i18n="nav_market">Market</a></li>
+        <li><a href="#features" data-i18n="nav_features">Features</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+          <span class="lang-indicator" id="langLabel">EN</span>
+          <span class="lang-switch-icon">⇄</span>
+        </button>
+        <a href="login.html" class="btn btn-primary btn-sm" id="navLoginBtn" data-i18n="nav_cta">Login</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="#weather" data-i18n="nav_weather">Weather</a>
+      <a href="#ai-guidance" data-i18n="nav_ai">AI Guidance</a>
+      <a href="#market" data-i18n="nav_market">Market</a>
+      <a href="#features" data-i18n="nav_features">Features</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 1: HERO
+    ═══════════════════════════════════════════ -->
+    <section id="hero" aria-labelledby="hero-title">
+      <div class="hero-bg-canvas" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="floating-dots" id="floatingDots"></div>
+      </div>
+
+      <div class="hero-content reveal">
+        <div class="hero-badge" data-i18n="hero_badge">🇮🇳 Built for Indian Farmers</div>
+        <h1 id="hero-title" class="hero-title">
+          <span data-i18n="hero_title_1">Grow Smarter.</span><br />
+          <em data-i18n="hero_title_2">Earn Better.</em>
+        </h1>
+        <p class="hero-sub" data-i18n="hero_sub">
+          Real-time weather, AI crop advice, and direct market access — all in one place. Empowering every farmer in
+          India.
+        </p>
+        <div class="hero-ctas">
+          <a href="#weather" class="btn btn-primary" data-i18n="hero_cta1">Explore Dashboard</a>
+          <a href="#ai-guidance" class="btn btn-ghost" data-i18n="hero_cta2">Get AI Guidance</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <strong>2.4L+</strong>
+            <span data-i18n="stat_farmers">Farmers Served</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <strong>18</strong>
+            <span data-i18n="stat_states">States Covered</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <strong>₹340Cr</strong>
+            <span data-i18n="stat_trade">Trade Facilitated</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="hero-card-stack">
+          <div class="floating-card card-weather">
+            <div class="fc-icon">🌤️</div>
+            <div class="fc-content">
+              <span class="fc-label">Today's Weather</span>
+              <span class="fc-value">28°C, Partly Cloudy</span>
+            </div>
+          </div>
+          <div class="floating-card card-crop">
+            <div class="fc-icon">🌾</div>
+            <div class="fc-content">
+              <span class="fc-label">AI Suggestion</span>
+              <span class="fc-value">Irrigate within 48h</span>
+            </div>
+          </div>
+          <div class="floating-card card-market">
+            <div class="fc-icon">📈</div>
+            <div class="fc-content">
+              <span class="fc-label">Wheat Price</span>
+              <span class="fc-value">₹2,150 / quintal ↑3%</span>
+            </div>
+          </div>
+          <div class="hero-illustration">
+            <svg viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Farm illustration">
+              <!-- Ground -->
+              <ellipse cx="160" cy="240" rx="150" ry="30" fill="#5a9e4a" opacity="0.15" />
+              <!-- Field rows -->
+              <path d="M 20 230 Q 160 200 300 230" stroke="#5a9e4a" stroke-width="2" opacity="0.3" fill="none" />
+              <path d="M 30 220 Q 160 190 290 220" stroke="#7bc26a" stroke-width="1.5" opacity="0.25" fill="none" />
+              <!-- Sun -->
+              <circle cx="260" cy="55" r="28" fill="#f5c842" opacity="0.9" />
+              <circle cx="260" cy="55" r="22" fill="#f7d95a" />
+              <!-- Sun rays -->
+              <g stroke="#f5c842" stroke-width="2.5" opacity="0.7" stroke-linecap="round">
+                <line x1="260" y1="15" x2="260" y2="5" />
+                <line x1="260" y1="95" x2="260" y2="105" />
+                <line x1="220" y1="55" x2="210" y2="55" />
+                <line x1="300" y1="55" x2="310" y2="55" />
+                <line x1="232" y1="27" x2="225" y2="20" />
+                <line x1="288" y1="83" x2="295" y2="90" />
+                <line x1="288" y1="27" x2="295" y2="20" />
+                <line x1="232" y1="83" x2="225" y2="90" />
+              </g>
+              <!-- Cloud -->
+              <ellipse cx="90" cy="65" rx="45" ry="22" fill="white" opacity="0.9" />
+              <ellipse cx="70" cy="72" rx="32" ry="18" fill="white" opacity="0.9" />
+              <ellipse cx="118" cy="70" rx="30" ry="16" fill="white" opacity="0.9" />
+              <!-- Wheat stalks -->
+              <g stroke="#7a8c2e" stroke-width="2">
+                <!-- Stalk 1 -->
+                <path d="M80 230 Q82 195 80 165" fill="none" />
+                <ellipse cx="80" cy="165" rx="7" ry="14" fill="#b5c936" transform="rotate(-5 80 165)" />
+                <!-- Stalk 2 -->
+                <path d="M110 230 Q112 190 110 158" fill="none" />
+                <ellipse cx="110" cy="158" rx="7" ry="14" fill="#b5c936" transform="rotate(5 110 158)" />
+                <!-- Stalk 3 -->
+                <path d="M140 230 Q141 195 140 162" fill="none" />
+                <ellipse cx="140" cy="162" rx="7" ry="14" fill="#c9d84a" transform="rotate(-3 140 162)" />
+                <!-- Stalk 4 -->
+                <path d="M170 230 Q172 190 170 155" fill="none" />
+                <ellipse cx="170" cy="155" rx="7" ry="14" fill="#b5c936" transform="rotate(8 170 155)" />
+                <!-- Stalk 5 -->
+                <path d="M200 230 Q201 193 200 160" fill="none" />
+                <ellipse cx="200" cy="160" rx="7" ry="14" fill="#c9d84a" transform="rotate(-6 200 160)" />
+                <!-- Stalk 6 -->
+                <path d="M230 230 Q232 195 230 163" fill="none" />
+                <ellipse cx="230" cy="163" rx="7" ry="14" fill="#b5c936" transform="rotate(4 230 163)" />
+              </g>
+              <!-- Farmer silhouette -->
+              <g transform="translate(145, 185)">
+                <circle cx="15" cy="0" r="10" fill="#5a3e28" />
+                <rect x="7" y="10" width="16" height="25" rx="5" fill="#3d6b3a" />
+                <line x1="7" y1="15" x2="-3" y2="32" stroke="#5a3e28" stroke-width="3" stroke-linecap="round" />
+                <line x1="23" y1="15" x2="33" y2="32" stroke="#5a3e28" stroke-width="3" stroke-linecap="round" />
+                <line x1="12" y1="35" x2="10" y2="50" stroke="#3d6b3a" stroke-width="3" stroke-linecap="round" />
+                <line x1="20" y1="35" x2="22" y2="50" stroke="#3d6b3a" stroke-width="3" stroke-linecap="round" />
+                <!-- Hat -->
+                <path d="M3 -1 Q15 -20 27 -1" stroke="#7a5c3a" stroke-width="2" fill="#8b6845" />
+                <rect x="0" y="-3" width="30" height="5" rx="2" fill="#7a5c3a" />
+              </g>
+              <!-- Birds -->
+              <path d="M45 95 Q50 89 55 95" stroke="#555" stroke-width="1.5" fill="none" stroke-linecap="round" />
+              <path d="M60 88 Q65 82 70 88" stroke="#555" stroke-width="1.5" fill="none" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span data-i18n="scroll_hint">Scroll to explore</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 2: WEATHER DASHBOARD
+    ═══════════════════════════════════════════ -->
+    <section id="weather" aria-labelledby="weather-title">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <span class="section-tag" data-i18n="weather_tag">Live Dashboard</span>
+          <h2 id="weather-title" data-i18n="weather_title">Weather for Your Field</h2>
+          <p data-i18n="weather_sub">Hyperlocal forecasts so you can plan irrigation, harvests, and spraying with
+            confidence.</p>
+        </div>
+
+        <div class="weather-controls reveal">
+          <div class="location-search-wrapper">
+            <div class="location-bar" id="locationBar">
+              <span class="loc-icon">📍</span>
+              <span id="weatherLocation" data-i18n="weather_location">Lucknow, Uttar Pradesh</span>
+            </div>
+            <div class="city-search-container" id="citySearchContainer">
+              <div class="city-search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="citySearchInput" class="city-search-input"
+                  placeholder="Search your city..." autocomplete="off"
+                  aria-label="Search city for weather" />
+                <button class="city-search-clear" id="citySearchClear" aria-label="Clear search" style="display:none;">✕</button>
+              </div>
+              <ul class="city-suggestions" id="citySuggestions" role="listbox" aria-label="City suggestions"></ul>
+            </div>
+            <div class="location-actions">
+              <button class="change-location-btn" id="changeLocationBtn" aria-label="Search location"
+                data-i18n="change_location">Change</button>
+              <button class="current-location-btn" id="currentLocationBtn" aria-label="Use current location" title="Use my current location">
+                <svg class="gps-crosshair" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"/>
+                  <line x1="12" y1="2" x2="12" y2="6"/>
+                  <line x1="12" y1="18" x2="12" y2="22"/>
+                  <line x1="2" y1="12" x2="6" y2="12"/>
+                  <line x1="18" y1="12" x2="22" y2="12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="weather-updated" id="weatherUpdated">Updated just now</div>
+        </div>
+
+        <div class="weather-main reveal">
+          <!-- Current weather big card -->
+          <div class="weather-hero-card glass-card">
+            <div class="wh-top">
+              <div class="wh-icon" id="weatherIcon" aria-label="Weather condition">☀️</div>
+              <div class="wh-temp">
+                <span id="weatherTemp" class="wh-temp-val">28</span>
+                <span class="wh-unit">°C</span>
+              </div>
+            </div>
+            <div class="wh-condition" id="weatherCondition">Partly Cloudy</div>
+            <div class="wh-detail-row">
+              <div class="wh-detail">
+                <span class="wh-detail-icon">💧</span>
+                <div>
+                  <div class="wh-detail-label" data-i18n="humidity">Humidity</div>
+                  <div class="wh-detail-val" id="weatherHumidity">65%</div>
+                </div>
+              </div>
+              <div class="wh-detail">
+                <span class="wh-detail-icon">🌬️</span>
+                <div>
+                  <div class="wh-detail-label" data-i18n="wind">Wind</div>
+                  <div class="wh-detail-val" id="weatherWind">14 km/h</div>
+                </div>
+              </div>
+              <div class="wh-detail">
+                <span class="wh-detail-icon">🌧️</span>
+                <div>
+                  <div class="wh-detail-label" data-i18n="rainfall">Rainfall</div>
+                  <div class="wh-detail-val" id="weatherRain">0 mm</div>
+                </div>
+              </div>
+              <div class="wh-detail">
+                <span class="wh-detail-icon">👁️</span>
+                <div>
+                  <div class="wh-detail-label" data-i18n="visibility">Visibility</div>
+                  <div class="wh-detail-val" id="weatherVis">8 km</div>
+                </div>
+              </div>
+            </div>
+            <div class="farming-alert" id="farmingAlert">
+              <span>🌱</span>
+              <span id="alertText" data-i18n="weather_alert_default">Good conditions for fieldwork today.</span>
+            </div>
+          </div>
+
+          <!-- 5 day forecast -->
+          <div class="forecast-panel">
+            <h3 class="forecast-title" data-i18n="forecast_title">5-Day Forecast</h3>
+            <div class="forecast-grid" id="forecastGrid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Soil & Crop indicators -->
+        <div class="weather-indicators reveal">
+          <div class="indicator-card glass-card">
+            <div class="ind-header">
+              <span>🌡️</span>
+              <span data-i18n="soil_temp">Soil Temperature</span>
+            </div>
+            <div class="ind-value">24°C</div>
+            <div class="ind-bar">
+              <div class="ind-fill" style="width:68%;" role="progressbar" aria-valuenow="68" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <div class="ind-note" data-i18n="soil_temp_note">Optimal for wheat & mustard</div>
+          </div>
+          <div class="indicator-card glass-card">
+            <div class="ind-header">
+              <span>💦</span>
+              <span data-i18n="soil_moist">Soil Moisture</span>
+            </div>
+            <div class="ind-value">42%</div>
+            <div class="ind-bar ind-bar-warn">
+              <div class="ind-fill ind-warn" style="width:42%;" role="progressbar" aria-valuenow="42" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <div class="ind-note" data-i18n="soil_moist_note">Consider irrigation in 2 days</div>
+          </div>
+          <div class="indicator-card glass-card">
+            <div class="ind-header">
+              <span>☀️</span>
+              <span data-i18n="uv_index">UV Index</span>
+            </div>
+            <div class="ind-value">6</div>
+            <div class="ind-bar ind-bar-orange">
+              <div class="ind-fill ind-orange" style="width:60%;" role="progressbar" aria-valuenow="60"
+                aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="ind-note" data-i18n="uv_note">High – limit midday exposure</div>
+          </div>
+          <div class="indicator-card glass-card">
+            <div class="ind-header">
+              <span>🌦️</span>
+              <span data-i18n="rain_prob">Rain Probability</span>
+            </div>
+            <div class="ind-value">15%</div>
+            <div class="ind-bar">
+              <div class="ind-fill ind-low" style="width:15%;" role="progressbar" aria-valuenow="15" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <div class="ind-note" data-i18n="rain_note">Low chance this week</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 3: AI CROP GUIDANCE
+    ═══════════════════════════════════════════ -->
+    <section id="ai-guidance" aria-labelledby="ai-title">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <span class="section-tag" data-i18n="ai_tag">AI Powered</span>
+          <h2 id="ai-title" data-i18n="ai_title">Smart Crop Guidance</h2>
+          <p data-i18n="ai_sub">Describe your field conditions and get expert recommendations instantly — powered by
+            agricultural AI.</p>
+        </div>
+
+        <div class="ai-layout reveal">
+          <!-- Input panel -->
+          <div class="ai-input-panel glass-card">
+            <h3 data-i18n="ai_form_title">Tell Us About Your Field</h3>
+
+            <div class="form-group">
+              <label for="cropSelect" data-i18n="label_crop">Crop Type</label>
+              <select id="cropSelect" aria-required="true">
+                <option value="" data-i18n="sel_crop_placeholder">Select a crop...</option>
+                <option value="wheat">Wheat (गेहूँ)</option>
+                <option value="rice">Rice (धान)</option>
+                <option value="sugarcane">Sugarcane (गन्ना)</option>
+                <option value="mustard">Mustard (सरसों)</option>
+                <option value="potato">Potato (आलू)</option>
+                <option value="cotton">Cotton (कपास)</option>
+                <option value="maize">Maize (मक्का)</option>
+                <option value="soybean">Soybean (सोयाबीन)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="soilSelect" data-i18n="label_soil">Soil Type</label>
+              <select id="soilSelect" aria-required="true">
+                <option value="" data-i18n="sel_soil_placeholder">Select soil type...</option>
+                <option value="alluvial">Alluvial (जलोढ़ मिट्टी)</option>
+                <option value="black">Black Cotton (काली मिट्टी)</option>
+                <option value="red">Red Soil (लाल मिट्टी)</option>
+                <option value="sandy">Sandy (रेतीली मिट्टी)</option>
+                <option value="loamy">Loamy (दोमट मिट्टी)</option>
+                <option value="clay">Clay (चिकनी मिट्टी)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="seasonSelect" data-i18n="label_season">Current Season</label>
+              <select id="seasonSelect" aria-required="true">
+                <option value="" data-i18n="sel_season_placeholder">Select season...</option>
+                <option value="kharif">Kharif (खरीफ) – Jun–Oct</option>
+                <option value="rabi">Rabi (रबी) – Oct–Mar</option>
+                <option value="zaid">Zaid (जायद) – Mar–Jun</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="problemInput" data-i18n="label_problem">Any Problems? (Optional)</label>
+              <textarea id="problemInput" rows="3" placeholder="e.g. yellowing leaves, pest sightings, water logging..."
+                aria-label="Describe crop problems"></textarea>
+            </div>
+
+            <button class="btn btn-primary btn-full" id="getGuidanceBtn" aria-live="polite" data-i18n="ai_btn">
+              <span class="btn-text">Get AI Guidance</span>
+              <span class="btn-icon">✨</span>
+            </button>
+          </div>
+
+          <!-- Output panel -->
+          <div class="ai-output-panel">
+            <div class="ai-output-placeholder" id="aiPlaceholder">
+              <div class="ai-placeholder-icon">🤖</div>
+              <p data-i18n="ai_placeholder">Fill in your field details and click <strong>Get AI Guidance</strong> to
+                receive personalized crop recommendations.</p>
+            </div>
+            <div class="ai-result" id="aiResult" style="display:none;" aria-live="polite"
+              aria-label="AI Crop Guidance Results">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 4: MARKET ACCESS
+    ═══════════════════════════════════════════ -->
+    <section id="market" aria-labelledby="market-title">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <span class="section-tag" data-i18n="market_tag">Live Market</span>
+          <h2 id="market-title" data-i18n="market_title">Sell Directly to Buyers</h2>
+          <p data-i18n="market_sub">Real-time mandi prices and direct buyer connections. Cut out middlemen, maximise
+            your profit.</p>
+        </div>
+
+        <!-- Market controls -->
+        <div class="market-controls reveal">
+          <div class="market-filters">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter_all">All Crops</button>
+            <button class="filter-btn" data-filter="grains" data-i18n="filter_grains">Grains</button>
+            <button class="filter-btn" data-filter="vegetables" data-i18n="filter_veg">Vegetables</button>
+            <button class="filter-btn" data-filter="oilseeds" data-i18n="filter_oil">Oilseeds</button>
+            <button class="filter-btn" data-filter="fruits" data-i18n="filter_fruits">Fruits</button>
+          </div>
+          <div class="market-sort">
+            <label for="sortSelect" class="sr-only">Sort by</label>
+            <select id="sortSelect" aria-label="Sort market listings">
+              <option value="default" data-i18n="sort_default">Sort: Default</option>
+              <option value="price-high" data-i18n="sort_price_high">Price: High → Low</option>
+              <option value="price-low" data-i18n="sort_price_low">Price: Low → High</option>
+              <option value="trend" data-i18n="sort_trend">Trending ↑</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Market grid -->
+        <div class="market-grid reveal" id="marketGrid" role="list" aria-label="Crop market listings">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Market ticker -->
+        <div class="market-ticker reveal" aria-label="Price ticker">
+          <span class="ticker-label" data-i18n="ticker_label">📊 Live Prices:</span>
+          <div class="ticker-track" id="tickerTrack">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 5: FEATURES
+    ═══════════════════════════════════════════ -->
+    <section id="features" aria-labelledby="features-title">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <span class="section-tag" data-i18n="features_tag">Why KisanSetu</span>
+          <h2 id="features-title" data-i18n="features_title">Everything a Farmer Needs</h2>
+          <p data-i18n="features_sub">Designed with simplicity, built for scale. Here's what makes KisanSetu different.
+          </p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card glass-card reveal">
+            <div class="feat-icon">🛰️</div>
+            <h3 data-i18n="feat1_title">Hyperlocal Weather</h3>
+            <p data-i18n="feat1_desc">Village-level forecasts using satellite data and IMD integration. Know exactly
+              when to irrigate or harvest.</p>
+          </div>
+          <div class="feature-card glass-card reveal" style="--delay:0.1s">
+            <div class="feat-icon">🤖</div>
+            <h3 data-i18n="feat2_title">AI Crop Doctor</h3>
+            <p data-i18n="feat2_desc">Upload a leaf photo or describe symptoms. Our AI identifies diseases and suggests
+              organic/chemical remedies.</p>
+          </div>
+          <div class="feature-card glass-card reveal" style="--delay:0.2s">
+            <div class="feat-icon">📊</div>
+            <h3 data-i18n="feat3_title">Real-Time Prices</h3>
+            <p data-i18n="feat3_desc">Live mandi rates from 500+ APMC markets across India. Compare prices before you
+              sell.</p>
+          </div>
+          <div class="feature-card glass-card reveal" style="--delay:0.3s">
+            <div class="feat-icon">🤝</div>
+            <h3 data-i18n="feat4_title">Direct Buyer Network</h3>
+            <p data-i18n="feat4_desc">Connect with verified buyers, exporters, and food companies. No commission agents,
+              better prices for you.</p>
+          </div>
+          <div class="feature-card glass-card reveal" style="--delay:0.1s">
+            <div class="feat-icon">🌐</div>
+            <h3 data-i18n="feat5_title">Works in Hindi</h3>
+            <p data-i18n="feat5_desc">Full platform support in Hindi, with more regional languages (Marathi, Punjabi,
+              Tamil) coming soon.</p>
+          </div>
+          <div class="feature-card glass-card reveal" style="--delay:0.2s">
+            <div class="feat-icon">📱</div>
+            <h3 data-i18n="feat6_title">Works on 2G</h3>
+            <p data-i18n="feat6_desc">Optimised for low-bandwidth connections and older smartphones. No app needed —
+              open in any browser.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 6: TESTIMONIALS
+    ═══════════════════════════════════════════ -->
+    <section id="testimonials" aria-labelledby="testimonials-title">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <span class="section-tag" data-i18n="testimonials_tag">Farmer Stories</span>
+          <h2 id="testimonials-title" data-i18n="testimonials_title">Real Farmers, Real Results</h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card glass-card reveal">
+            <div class="testi-quote" aria-hidden="true">"</div>
+            <p class="testi-text" data-i18n="testi1_text">"KisanSetu's weather alert saved my entire mustard crop last
+              winter. I was able to cover the field before the frost hit."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" aria-hidden="true">रा</div>
+              <div>
+                <strong data-i18n="testi1_name">Ramesh Yadav</strong>
+                <span data-i18n="testi1_loc">Varanasi, UP</span>
+              </div>
+              <div class="testi-stars" aria-label="5 stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="testimonial-card glass-card reveal" style="--delay:0.15s">
+            <div class="testi-quote" aria-hidden="true">"</div>
+            <p class="testi-text" data-i18n="testi2_text">"I sold my potatoes directly to a buyer in Delhi through this
+              platform. Got 18% more than the local mandi rate."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" aria-hidden="true">सु</div>
+              <div>
+                <strong data-i18n="testi2_name">Sunita Devi</strong>
+                <span data-i18n="testi2_loc">Agra, UP</span>
+              </div>
+              <div class="testi-stars" aria-label="5 stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="testimonial-card glass-card reveal" style="--delay:0.3s">
+            <div class="testi-quote" aria-hidden="true">"</div>
+            <p class="testi-text" data-i18n="testi3_text">"The AI crop doctor identified leaf blight on my rice crop. I
+              treated it in time and had my best yield in 5 years."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" aria-hidden="true">हर</div>
+              <div>
+                <strong data-i18n="testi3_name">Harpreet Singh</strong>
+                <span data-i18n="testi3_loc">Ludhiana, Punjab</span>
+              </div>
+              <div class="testi-stars" aria-label="5 stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="trust-badges reveal">
+          <div class="trust-badge">
+            <span class="tb-icon">🏛️</span>
+            <span data-i18n="trust1">Govt. of India Partner</span>
+          </div>
+          <div class="trust-badge">
+            <span class="tb-icon">🌿</span>
+            <span data-i18n="trust2">ICAR Certified Data</span>
+          </div>
+          <div class="trust-badge">
+            <span class="tb-icon">🔒</span>
+            <span data-i18n="trust3">100% Secure Platform</span>
+          </div>
+          <div class="trust-badge">
+            <span class="tb-icon">📞</span>
+            <span data-i18n="trust4">24/7 Kisan Helpline</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span>🌾</span>
+          <span>KisanSetu</span>
+        </div>
+        <p data-i18n="footer_tagline">Bridging the gap between field and market.</p>
+        <div class="footer-social" aria-label="Social links">
+          <a href="#" aria-label="WhatsApp" class="social-link">📲</a>
+          <a href="#" aria-label="Twitter" class="social-link">𝕏</a>
+          <a href="#" aria-label="YouTube" class="social-link">▶️</a>
+          <a href="#" aria-label="Facebook" class="social-link">👍</a>
+        </div>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <div class="footer-col">
+          <h4 data-i18n="footer_platform">Platform</h4>
+          <a href="#weather" data-i18n="nav_weather">Weather</a>
+          <a href="#ai-guidance" data-i18n="nav_ai">AI Guidance</a>
+          <a href="#market" data-i18n="nav_market">Market</a>
+          <a href="#features" data-i18n="nav_features">Features</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_support">Support</h4>
+          <a href="#" data-i18n="footer_help">Help Center</a>
+          <a href="#" data-i18n="footer_faq">FAQ</a>
+          <a href="tel:18001801551" data-i18n="footer_helpline">Kisan Helpline</a>
+          <a href="#" data-i18n="footer_feedback">Give Feedback</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_legal">Legal</h4>
+          <a href="#" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="#" data-i18n="footer_terms">Terms of Use</a>
+          <a href="#" data-i18n="footer_disclaimer">Disclaimer</a>
+        </div>
+      </nav>
+
+      <div class="footer-cta">
+        <p data-i18n="footer_cta_text">Have a question? Call our Kisan Helpline.</p>
+        <a href="tel:18001801551" class="btn btn-primary" data-i18n="footer_cta_btn">1800-180-1551</a>
+        <p class="footer-free" data-i18n="footer_free">Toll Free · Available in Hindi & English</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p data-i18n="footer_copy">© 2025 KisanSetu. Made with ❤️ for Indian Farmers.</p>
+      <p class="footer-disclaimer-text" data-i18n="footer_disclaimer_small">Weather data is indicative. Always consult
+        local agricultural officers for critical decisions.</p>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
