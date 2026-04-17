@@ -81,13 +81,3 @@ Input Data → AI Processing → Recommendations → Farmer Action → Market Co
 - More regional languages  
 
 ---
-
-## 🤝 Contributing
-Contributions are welcome! Fork this repository and submit a pull request.
-
----
-
-## 📄 License
-Open-source and available for educational purposes.
-
----
