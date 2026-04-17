@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   KISANSETU – script.js
+   CropLynk – script.js
    All functionality: i18n, weather, AI, market
 ═══════════════════════════════════════════ */
 
@@ -68,9 +68,9 @@ const TRANSLATIONS = {
     sort_price_low: 'Price: Low → High',
     sort_trend: 'Trending ↑',
     ticker_label: '📊 Live Prices:',
-    features_tag: 'Why KisanSetu',
+    features_tag: 'Why CropLynk',
     features_title: 'Everything a Farmer Needs',
-    features_sub: 'Designed with simplicity, built for scale. Here\'s what makes KisanSetu different.',
+    features_sub: 'Designed with simplicity, built for scale. Here\'s what makes CropLynk different.',
     feat1_title: 'Hyperlocal Weather',
     feat1_desc: 'Village-level forecasts using satellite data and IMD integration. Know exactly when to irrigate or harvest.',
     feat2_title: 'AI Crop Doctor',
@@ -85,7 +85,7 @@ const TRANSLATIONS = {
     feat6_desc: 'Optimised for low-bandwidth connections and older smartphones. No app needed — open in any browser.',
     testimonials_tag: 'Farmer Stories',
     testimonials_title: 'Real Farmers, Real Results',
-    testi1_text: '"KisanSetu\'s weather alert saved my entire mustard crop last winter. I was able to cover the field before the frost hit."',
+    testi1_text: '"CropLynk\'s weather alert saved my entire mustard crop last winter. I was able to cover the field before the frost hit."',
     testi1_name: 'Ramesh Yadav',
     testi1_loc: 'Varanasi, UP',
     testi2_text: '"I sold my potatoes directly to a buyer in Delhi through this platform. Got 18% more than the local mandi rate."',
@@ -112,7 +112,7 @@ const TRANSLATIONS = {
     footer_cta_text: 'Have a question? Call our Kisan Helpline.',
     footer_cta_btn: '1800-180-1551',
     footer_free: 'Toll Free · Available in Hindi & English',
-    footer_copy: '© 2025 KisanSetu. Made with ❤️ for Indian Farmers.',
+    footer_copy: '© 2025 CropLynk. Made with ❤️ for Indian Farmers.',
     footer_disclaimer_small: 'Weather data is indicative. Always consult local agricultural officers for critical decisions.',
     sell_now: 'Sell Now',
     find_buyers: 'Find Buyers',
@@ -120,7 +120,7 @@ const TRANSLATIONS = {
     listed_for_sale: 'listed for sale!',
     use_my_location: 'My Location',
     close_search: 'Close',
-    auth_title: 'Welcome to KisanSetu',
+    auth_title: 'Welcome to CropLynk',
     auth_sub: 'Login with Google to continue to your dashboard',
     auth_google_btn: 'Sign in with Google',
     auth_disclaimer: 'By continuing, you agree to our Terms of Service & Privacy Policy.',
@@ -190,9 +190,9 @@ const TRANSLATIONS = {
     sort_price_low: 'मूल्य: कम → अधिक',
     sort_trend: 'ट्रेंडिंग ↑',
     ticker_label: '📊 लाइव भाव:',
-    features_tag: 'KisanSetu क्यों',
+    features_tag: 'CropLynk क्यों',
     features_title: 'किसान को जो चाहिए सब यहाँ',
-    features_sub: 'सरलता के साथ डिज़ाइन, बड़े पैमाने पर बनाया। जानें KisanSetu को क्या अलग बनाता है।',
+    features_sub: 'सरलता के साथ डिज़ाइन, बड़े पैमाने पर बनाया। जानें CropLynk को क्या अलग बनाता है।',
     feat1_title: 'हाइपरलोकल मौसम',
     feat1_desc: 'उपग्रह डेटा और IMD एकीकरण से गांव-स्तरीय पूर्वानुमान। ठीक से जानें कब सिंचाई या कटाई करें।',
     feat2_title: 'AI फसल डॉक्टर',
@@ -207,7 +207,7 @@ const TRANSLATIONS = {
     feat6_desc: 'कम बैंडविड्थ कनेक्शन के लिए अनुकूलित। कोई ऐप नहीं चाहिए — किसी भी ब्राउज़र में खोलें।',
     testimonials_tag: 'किसानों की कहानियां',
     testimonials_title: 'असली किसान, असली नतीजे',
-    testi1_text: '"KisanSetu की मौसम चेतावनी ने पिछली सर्दियों में मेरी पूरी सरसों की फसल बचाई।"',
+    testi1_text: '"CropLynk की मौसम चेतावनी ने पिछली सर्दियों में मेरी पूरी सरसों की फसल बचाई।"',
     testi1_name: 'रमेश यादव',
     testi1_loc: 'वाराणसी, UP',
     testi2_text: '"मैंने इस प्लेटफ़ॉर्म के ज़रिये दिल्ली के खरीदार को सीधे आलू बेचे। स्थानीय मंडी भाव से 18% अधिक मिला।"',
@@ -234,7 +234,7 @@ const TRANSLATIONS = {
     footer_cta_text: 'कोई सवाल है? किसान हेल्पलाइन पर कॉल करें।',
     footer_cta_btn: '1800-180-1551',
     footer_free: 'टोल फ्री · हिंदी और अंग्रेजी में उपलब्ध',
-    footer_copy: '© 2025 KisanSetu. भारतीय किसानों के लिए ❤️ से बना।',
+    footer_copy: '© 2025 CropLynk. भारतीय किसानों के लिए ❤️ से बना।',
     footer_disclaimer_small: 'मौसम डेटा सांकेतिक है। महत्वपूर्ण निर्णयों के लिए स्थानीय कृषि अधिकारियों से परामर्श करें।',
     sell_now: 'अभी बेचें',
     find_buyers: 'खरीदार खोजें',
@@ -242,7 +242,7 @@ const TRANSLATIONS = {
     listed_for_sale: 'बिक्री के लिए सूचीबद्ध!',
     use_my_location: 'मेरा स्थान',
     close_search: 'बंद करें',
-    auth_title: 'KisanSetu में आपका स्वागत है',
+    auth_title: 'CropLynk में आपका स्वागत है',
     auth_sub: 'शुरू करने के लिए अपने फोन नंबर से लॉगिन करें',
     auth_send_otp: 'OTP भेजें',
     auth_disclaimer: 'आगे बढ़कर, आप हमारी सेवा की शर्तों और गोपनीयता नीति से सहमत हैं।',
@@ -418,7 +418,7 @@ function generateAIResponse(crop, soil, season, problem) {
     cards.push({
       icon: '🔍', title: 'Problem Analysis',
       body: `Based on your description: "${problem.trim()}" — this could indicate pest/disease pressure, nutrient deficiency, or environmental stress. Collect samples and consult your nearest KVK (Krishi Vigyan Kendra) for laboratory analysis.`,
-      tip: 'Take a close-up photo of affected plants and upload to KisanSetu\'s AI Doctor for instant diagnosis.',
+      tip: 'Take a close-up photo of affected plants and upload to CropLynk\'s AI Doctor for instant diagnosis.',
       type: 'warning-card'
     });
   }
@@ -1400,5 +1400,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.weather-indicators').forEach(el => barObserver.observe(el));
   }
 
-  console.log('🌾 KisanSetu initialized successfully!');
+  console.log('🌾 CropLynk initialized successfully!');
 });
