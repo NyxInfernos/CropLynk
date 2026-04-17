@@ -2,10 +2,10 @@
 
 ---
 
-![GitHub stars](https://img.shields.io/github/stars/your-username/croplynk?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/your-username/croplynk?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/your-username/croplynk?style=for-the-badge)
-![GitHub license](https://img.shields.io/github/license/your-username/croplynk?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/NyxInfernos/croplynk?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/NyxInfernos/croplynk?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/NyxInfernos/croplynk?style=for-the-badge)
+![GitHub license](https://img.shields.io/github/license/NyxInfernos/croplynk?style=for-the-badge)
 ![Firebase](https://img.shields.io/badge/Hosted%20on-Firebase-orange?style=for-the-badge&logo=firebase)
 
 ---
