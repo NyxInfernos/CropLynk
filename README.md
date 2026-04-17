@@ -81,3 +81,8 @@ Input Data → AI Processing → Recommendations → Farmer Action → Market Co
 - More regional languages  
 
 ---
+
+## 📄 License
+This project is proprietary and not open for public use. All rights reserved.
+
+---
